@@ -49,11 +49,6 @@ fun RepoList(searchStr: String = "stars:>1") {
     var loadMore by remember {
         mutableStateOf(false)
     }
-//
-//    val shouldReload by remember(searchStr) {
-//        derivedStateOf { true }  // 这里表示只要 searchStr 变化就应该重新加载
-//    }
-
 
     Column(
         modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
@@ -66,7 +61,7 @@ fun RepoList(searchStr: String = "stars:>1") {
             ) {
                 CircularProgressIndicator()
             }
-        } else if (repoListState.isEmpty() || viewModel.loadFirstPageStatus.value == LoadStatus.ERROR) {
+        } else if (repoListState.isEmpty()) {
             Logger.d(TAG, "show empty")
             Box(
                 modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
@@ -77,15 +72,18 @@ fun RepoList(searchStr: String = "stars:>1") {
                 }) {
                     Text("加载出错，请重试")
                 }
-                if (isButtonLoading) {
-                    CircularProgressIndicator() // 按钮点击时显示加载指示器
+                Column {
+                    if (isButtonLoading) {
+                        CircularProgressIndicator() // 按钮点击时显示加载指示器
+                    }
+                    Text(
+                        text = errorMessage,
+                        color = Color.Red,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(30.dp)
+                    )
                 }
-                Text(
-                    text = errorMessage,
-                    color = Color.Red,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(16.dp)
-                )
+
             }
 
 
@@ -141,7 +139,7 @@ fun RepoList(searchStr: String = "stars:>1") {
         viewModel.repoList.observeForever { newRepoList ->
             Logger.d(TAG, "repoList change")
             if (newRepoList.isEmpty() && repoListState.isNotEmpty()) {
-                //do nothing
+                //加载更多修改底部状态，统一封装到uistatus中
             } else {
                 repoListState = newRepoList ?: emptyList()
             }

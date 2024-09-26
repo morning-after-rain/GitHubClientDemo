@@ -63,7 +63,7 @@ class SearchResultViewModel : BaseViewModel() {
                 Logger.d("searchResult", searchRepoResult.toString())
                 repoList.postValue(searchRepoResult.items)
                 refreshStatus.value = false
-                emptyStatus.value = searchRepoResult.items?.isEmpty()
+                emptyStatus.value = searchRepoResult.items.isEmpty()
             }
             loadFirstPageStatus.postValue(LoadStatus.COMPLETED)
             Logger.d("searchResult", "step2")
@@ -112,3 +112,12 @@ class SearchResultViewModel : BaseViewModel() {
     }
 
 }
+
+
+data class SearchUIState(
+    val repoEntityList: List<RepoEntity> = emptyList(),
+    val openedRepoEntity: RepoEntity? = null,
+    val isDetailOnlyOpen: Boolean = false,
+    val loading: Boolean = false,
+    val error: String? = null
+)
