@@ -1,4 +1,4 @@
-package com.ken.githubclient.ui.page
+package com.ken.githubclient.ui.content
 
 
 import androidx.compose.foundation.background
@@ -46,7 +46,5 @@ fun SearchScreen() {
         }
         RepoList(searchStr.value)
     }
-
-
 }
 

@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">GithubClient</string>
-    <string name="search_tab">热门</string>
-    <string name="discover">搜索</string>
-    <string name="my_tab">我的</string>
+    <string name="tab_search">search</string>
+    <string name="issue">issue</string>
+    <string name="tab_setting">person</string>
 
-    <string name="refuse_permission">拒绝授权可能会导致有些功能无法使用哦</string>
+    <string name="repo_detail">repoDetail</string>
+
+
+    <string name="empty_screen_title">Screen under construction</string>
+    <string name="empty_screen_subtitle">This screen is still under construction. </string>
+
 </resources>

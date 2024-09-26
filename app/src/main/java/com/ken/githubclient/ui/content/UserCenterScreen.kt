@@ -1,4 +1,4 @@
-package com.ken.githubclient.ui.page
+package com.ken.githubclient.ui.content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

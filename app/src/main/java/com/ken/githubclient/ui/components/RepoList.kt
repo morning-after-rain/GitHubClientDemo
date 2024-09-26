@@ -30,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ken.githubclient.common.LoadStatus
 import com.ken.githubclient.net.model.RepoEntity
 import com.ken.githubclient.net.repository.SearchResultRepository.Companion.PARAM_TYPE_REPO
+import com.ken.githubclient.ui.navigation.ClientRoute
 import com.ken.githubclient.ui.viewmodel.SearchResultViewModel
 import com.ken.githubclient.utls.Logger
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -95,7 +96,7 @@ fun RepoList(searchStr: String = "stars:>1") {
                 Logger.d(TAG, "show list")
                 itemsIndexed(repoListState) { index, repoData ->
                     RepoItem(repoData) {
-                        navController.navigate("RepoDetails/${repoData.id}")
+                        navController.navigate("${ClientRoute.REPO_DETAIL}/${repoData.id}")
                     }
                 }
                 if (loadMore) {

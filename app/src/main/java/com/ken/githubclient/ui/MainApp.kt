@@ -8,11 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ken.githubclient.ui.navigation.BottomNavItem
+import com.ken.githubclient.ui.content.RepoDetailScreen
+import com.ken.githubclient.ui.navigation.NavItem
 import com.ken.githubclient.ui.navigation.BottomNavigationBar
-import com.ken.githubclient.ui.page.HotScreen
-import com.ken.githubclient.ui.page.UserCenterScreen
-import com.ken.githubclient.ui.page.SearchScreen
+import com.ken.githubclient.ui.content.SearchScreen
+import com.ken.githubclient.ui.content.UserCenterScreen
+import com.ken.githubclient.ui.navigation.ClientRoute
 
 @Composable
 fun MainApp() {
@@ -21,18 +22,18 @@ fun MainApp() {
     Scaffold(bottomBar = { BottomNavigationBar(navController) }) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = BottomNavItem.Home.route,
+            startDestination = NavItem.Home.route,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            composable(BottomNavItem.Home.route) {
-                HotScreen()
-            }
-            composable(BottomNavItem.Discover.route) {
+            composable(NavItem.Home.route) {
                 SearchScreen()
             }
-            composable(BottomNavItem.My.route) {
+            composable(NavItem.Issue.route) {
+                EmptyComingSoon()
+            }
+            composable(NavItem.My.route) {
                 UserCenterScreen()
             }
         }

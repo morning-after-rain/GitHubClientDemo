@@ -1,6 +1,5 @@
 package com.ken.githubclient.ui.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -9,16 +8,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,9 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Discover,
-        BottomNavItem.My
+        NavItem.Home,
+        NavItem.Issue,
+        NavItem.My
     )
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -54,9 +52,13 @@ fun BottomNavigationBar(navController: NavController) {
 //                                .background(Color.White)
                                 .padding(bottom = 8.dp),
                             tint = if (currentRoute == item.route) Color.Blue else Color.Gray,
-                            )
+                        )
                     },
-                    label = { Text(item.title) },
+                    label = {
+                        Text(
+                            text = stringResource(id = item.iconTextId)
+                        )
+                    },
                     selected = currentRoute == item.route,
                     onClick = {
                         navController.navigate(item.route) {
@@ -72,7 +74,5 @@ fun BottomNavigationBar(navController: NavController) {
                 )
             }
         }
-
-
     }
 }
