@@ -1,6 +1,4 @@
 # Screenshots
 
-<img width="392" alt="image" src="https://github.com/user-attachments/assets/554647ed-1f2c-4a24-83b6-a1dbf999906e">
-<img width="394" alt="image" src="https://github.com/user-attachments/assets/510d6bc7-bd66-4ae8-8eed-66420008a21d">
 
-
+![Screenshot_2024-09-26-16-21-12-05_1778cb9303e9e473aba44e463cb7cea3](https://github.com/user-attachments/assets/2923906c-ef7d-47fc-a689-d1ad693fe02c)
