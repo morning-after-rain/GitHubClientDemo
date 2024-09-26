@@ -9,7 +9,10 @@ import com.ken.githubclient.net.model.SearchUserResult
 import com.ken.githubclient.net.model.UserInfo
 import com.ken.githubclient.net.repository.SearchResultRepository
 import com.ken.githubclient.net.repository.SearchResultRepository.Companion.PARAM_TYPE_USER
+import com.ken.githubclient.ui.viewmodel.SearchResultViewModel.Companion.INITIAL_PAGE
 import com.ken.githubclient.utls.Logger
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 
 class SearchResultViewModel : BaseViewModel() {
@@ -20,7 +23,15 @@ class SearchResultViewModel : BaseViewModel() {
         const val INITIAL_PER_PAGE = 10
     }
 
+    // UI state exposed to the UI
+    private val _uiState = MutableStateFlow(SearchResultUIState(loadStatus = LoadStatus.LOADING))
+    val uiState: StateFlow<SearchResultUIState> = _uiState
+    //todo 使用uiState收拢 并observe UIState的值触发业务逻辑
+
+
     private val searchResultRepository by lazy { SearchResultRepository() }
+
+
 
     val repoList = MutableLiveData<MutableList<RepoEntity>>()
     val userInfoList = MutableLiveData<MutableList<UserInfo>>()
@@ -114,10 +125,13 @@ class SearchResultViewModel : BaseViewModel() {
 }
 
 
-data class SearchUIState(
-    val repoEntityList: List<RepoEntity> = emptyList(),
-    val openedRepoEntity: RepoEntity? = null,
+data class SearchResultUIState(
+    val repoList: List<RepoEntity> = emptyList(),
+    val loadStatus: LoadStatus = LoadStatus.LOADING,
+    val currentKeywords: String = "stars:>1",
+    val page: Int = INITIAL_PAGE,
+    val type: String = "",
+    val error: String? = null,
+    val openedRepo: RepoEntity? = null,
     val isDetailOnlyOpen: Boolean = false,
-    val loading: Boolean = false,
-    val error: String? = null
 )
