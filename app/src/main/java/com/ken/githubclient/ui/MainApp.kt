@@ -34,7 +34,8 @@ fun MainApp() {
                 EmptyComingSoon()
             }
             composable(NavItem.My.route) {
-                UserCenterScreen()
+                EmptyComingSoon()
+//                UserCenterScreen()
             }
         }
     }
