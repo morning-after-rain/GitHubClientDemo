@@ -1,6 +1,5 @@
-@file:JvmName("HomePageKt")
+package com.ken.githubclient.ui.components
 
-package com.ken.githubclient.ui.page
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,7 +23,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -33,22 +30,17 @@ import androidx.navigation.compose.rememberNavController
 import com.ken.githubclient.common.LoadStatus
 import com.ken.githubclient.net.model.RepoEntity
 import com.ken.githubclient.net.repository.SearchResultRepository.Companion.PARAM_TYPE_REPO
-import com.ken.githubclient.ui.components.RepoItem
 import com.ken.githubclient.ui.viewmodel.SearchResultViewModel
 import com.ken.githubclient.utls.Logger
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Composable
-fun HomePage() {
+fun RepoList(searchStr: String = "stars:>1") {
     val TAG = "HomePage"
     val navController = rememberNavController()
     val viewModel: SearchResultViewModel = viewModel()
-    val context = LocalContext.current
-    // Use a SnapshotStateList and mutableStateOf to track repo list
 
     var repoListState by remember { mutableStateOf(emptyList<RepoEntity>()) }
-    var loadFirstPageStatus by remember { mutableStateOf("") }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf("") }
     val listState = rememberLazyListState()
@@ -56,6 +48,10 @@ fun HomePage() {
     var loadMore by remember {
         mutableStateOf(false)
     }
+//
+//    val shouldReload by remember(searchStr) {
+//        derivedStateOf { true }  // 这里表示只要 searchStr 变化就应该重新加载
+//    }
 
 
     Column(
@@ -65,16 +61,14 @@ fun HomePage() {
         if (isLoading) {
             Logger.d(TAG, "show loading")
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
             }
         } else if (repoListState.isEmpty() || viewModel.loadFirstPageStatus.value == LoadStatus.ERROR) {
             Logger.d(TAG, "show empty")
             Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
             ) {
                 Button(onClick = {
                     isButtonLoading = true // 点击时设置为加载中
@@ -118,9 +112,9 @@ fun HomePage() {
             }
         }
     }
+
     LaunchedEffect(listState) {
-        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == repoListState.size - 1 }
-            .distinctUntilChanged()
+        snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index == repoListState.size - 1 }.distinctUntilChanged()
             .collect {
                 if (!loadMore) {
                     //todo 滑动到底部显示文本提示并终止loadMore的触发
@@ -134,7 +128,7 @@ fun HomePage() {
         try {
             Logger.d(TAG, "load data")
             isLoading = true
-            viewModel.search("stars>50", type = PARAM_TYPE_REPO)
+            viewModel.search(searchStr, type = PARAM_TYPE_REPO)
         } catch (e: Exception) {
             viewModel.loadFirstPageStatus.value = LoadStatus.ERROR
         } finally {
@@ -152,6 +146,18 @@ fun HomePage() {
             }
             isLoading = false
             loadMore = false
+        }
+    }
+
+    LaunchedEffect(searchStr) {
+        try {
+            Logger.d(TAG, "load data")
+            isLoading = true
+            viewModel.search(searchStr, type = PARAM_TYPE_REPO)
+        } catch (e: Exception) {
+            viewModel.loadFirstPageStatus.value = LoadStatus.ERROR
+        } finally {
+            Logger.d(TAG, "load finish")
         }
     }
 

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -68,13 +69,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.compose.ui:ui:1.5.0")
-    implementation("androidx.compose.material:material:1.5.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.8")
+    implementation(libs.androidx.compose.ui.ui)
+    implementation(libs.androidx.material)
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
     implementation("androidx.navigation:navigation-compose:2.8.1")
-    implementation("androidx.compose.foundation:foundation:1.5.0")
+    implementation("androidx.compose.foundation:foundation:1.7.2")
 
-    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")

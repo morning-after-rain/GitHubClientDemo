@@ -1,18 +1,18 @@
 package com.ken.githubclient.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ken.githubclient.ui.navigation.BottomNavigationBar
-import androidx.compose.ui.Modifier
 import com.ken.githubclient.ui.navigation.BottomNavItem
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
-import com.ken.githubclient.ui.page.DiscoverPage
-import com.ken.githubclient.ui.page.HomePage
-import com.ken.githubclient.ui.page.MyPage
+import com.ken.githubclient.ui.navigation.BottomNavigationBar
+import com.ken.githubclient.ui.page.HotScreen
+import com.ken.githubclient.ui.page.UserCenterScreen
+import com.ken.githubclient.ui.page.SearchScreen
 
 @Composable
 fun MainApp() {
@@ -27,13 +27,13 @@ fun MainApp() {
                 .padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) {
-                HomePage()
+                HotScreen()
             }
             composable(BottomNavItem.Discover.route) {
-                DiscoverPage()
+                SearchScreen()
             }
             composable(BottomNavItem.My.route) {
-                MyPage()
+                UserCenterScreen()
             }
         }
     }

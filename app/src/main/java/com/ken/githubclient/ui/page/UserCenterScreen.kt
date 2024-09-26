@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun MyPage() {
+fun UserCenterScreen() {
     val textList = listOf(
         "登录",
         "仓库",

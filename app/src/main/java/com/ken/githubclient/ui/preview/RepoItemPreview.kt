@@ -1,9 +1,10 @@
-package com.ken.githubclient.ui.components
+package com.ken.githubclient.ui.preview
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.ken.githubclient.net.model.RepoEntity
 import com.ken.githubclient.net.model.RepoOwner
+import com.ken.githubclient.ui.components.RepoItem
 
 @Preview
 @Composable
