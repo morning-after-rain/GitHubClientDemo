@@ -44,7 +44,7 @@ fun SearchBar(onSearchClicked: (String) -> Unit, onTextChanged: (String) -> Unit
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)
-            .background(color = Color.Black, shape = RoundedCornerShape(10.dp))
+            .background(color = Color.Black)
             .clickable { }
     ) {
         Box(
