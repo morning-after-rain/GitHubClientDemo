@@ -8,33 +8,31 @@ import com.ken.githubclient.net.repository.LoginRepository
 class LoginViewModel : BaseViewModel() {
 
     private val loginRepository by lazy { LoginRepository() }
-    val submitting = MutableLiveData<Boolean>()
-    val loginResult = MutableLiveData<Boolean>()
-    val loginStatus = MutableLiveData<Boolean>();
+    val loginStatus = MutableLiveData<LoginStates>()
 
 
     fun login(account: String, password: String) {
         launch(
             block = {
-                submitting.value = true
+                loginStatus.value = LoginStates.REQUEST
                 val userInfo = loginRepository.login()
                 //todo 缓存
-                submitting.value = false
-                loginResult.value = true
-                loginStatus.value = true
+                loginStatus.value = LoginStates.LOGIN_SUCCESS
             },
             error = {
                 println(it.message)
-                submitting.value = false
-                loginResult.value = false
-                loginStatus.value = false
+                loginStatus.value = LoginStates.LOGIN_FAIL
             }
         )
     }
 
     fun logout() {
-        loginStatus.value = false
+        loginStatus.value = LoginStates.LOGIN_FAIL
         RetrofitClient.clearCookie()
     }
 
+}
+
+enum class LoginStates {
+    REQUEST, LOGIN_SUCCESS, LOGIN_FAIL
 }
