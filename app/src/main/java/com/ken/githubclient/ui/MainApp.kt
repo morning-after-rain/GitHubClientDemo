@@ -8,12 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ken.githubclient.ui.content.RepoDetailScreen
-import com.ken.githubclient.ui.navigation.NavItem
-import com.ken.githubclient.ui.navigation.BottomNavigationBar
 import com.ken.githubclient.ui.content.SearchScreen
-import com.ken.githubclient.ui.content.UserCenterScreen
-import com.ken.githubclient.ui.navigation.ClientRoute
+import com.ken.githubclient.ui.navigation.BottomNavigationBar
+import com.ken.githubclient.ui.navigation.NavItem
 
 @Composable
 fun MainApp() {
